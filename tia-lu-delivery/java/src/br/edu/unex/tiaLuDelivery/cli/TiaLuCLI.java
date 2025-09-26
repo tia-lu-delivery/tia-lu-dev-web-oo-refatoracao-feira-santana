@@ -1,4 +1,4 @@
-package br.com.unex.tiaLuDelivery.cli;
+package br.edu.unex.tiaLuDelivery.cli;
 
 import java.util.Scanner;
 

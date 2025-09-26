@@ -1,4 +1,4 @@
-package br.com.unex.tiaLuDelivery.model;
+package br.edu.unex.tiaLuDelivery.model;
 
 public enum OrderStatus {
     AWAITING_MERCHANT_ACCEPTANCE,

@@ -1,4 +1,4 @@
-package br.com.unex.tiaLuDelivery.repository;
+package br.edu.unex.tiaLuDelivery.repository;
 
 public class Repository {
 }

@@ -1,4 +1,4 @@
-package br.com.unex.tiaLuDelivery.model;
+package br.edu.unex.tiaLuDelivery.model;
 
 import java.util.ArrayList;
 import java.util.List;
