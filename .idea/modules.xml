@@ -4,6 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/tia-lu-delivery/java/java.iml" filepath="$PROJECT_DIR$/tia-lu-delivery/java/java.iml" />
       <module fileurl="file://$PROJECT_DIR$/tia-lu-delivery.iml" filepath="$PROJECT_DIR$/tia-lu-delivery.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/tia-lu-delivery.main.iml" filepath="$PROJECT_DIR$/.idea/modules/tia-lu-delivery.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/tia-lu-delivery.test.iml" filepath="$PROJECT_DIR$/.idea/modules/tia-lu-delivery.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/tia-lu-dev-web-oo-refatoracao-feira-santana.iml" filepath="$PROJECT_DIR$/.idea/tia-lu-dev-web-oo-refatoracao-feira-santana.iml" />
     </modules>
   </component>
