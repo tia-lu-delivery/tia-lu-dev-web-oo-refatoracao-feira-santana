@@ -1,5 +1,8 @@
 package br.edu.unex.tiaLuDelivery.model;
 
+import br.edu.unex.tiaLuDelivery.states.IOrderState;
+import br.edu.unex.tiaLuDelivery.states.WaitingAcceptanceState;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,24 +15,25 @@ public class Order {
     private final long id;
     private final Customer customer;
     private final List<OrderItem> items;
-    private OrderStatus status;
+    private IOrderState state;
 
-    public Order(final Customer customer){
+    public Order(final Customer customer) {
         this.id = ++sequence;
         this.customer = customer;
         this.items = new ArrayList<>();
-        this.status = OrderStatus.AWAITING_MERCHANT_ACCEPTANCE;
+        this.state = new WaitingAcceptanceState();
     }
 
     public void addItem(final MenuItem menuItem, final int amount) {
-        if(menuItem == null)
-            throw new IllegalArgumentException("The selected menu item can not be empty or null");
+        if (menuItem == null) {
+            throw new IllegalArgumentException("The selected menu item cannot be empty or null");
+        }
         items.add(new OrderItem(this, menuItem, amount));
     }
 
     public void updateItemAmount(final MenuItem menuItem, final int amount) {
         this.items.stream()
-                .filter( item -> item.getMenuItem().equals(menuItem) )
+                .filter(item -> item.getMenuItem().equals(menuItem))
                 .findFirst()
                 .ifPresent(orderItem -> orderItem.setAmount(amount));
     }
@@ -52,28 +56,56 @@ public class Order {
         return items;
     }
 
-    public OrderStatus getStatus() {
-        return status;
+    public void accept() {
+        state.accept(this);
     }
 
-    public void setStatus(OrderStatus status) {
-        this.status = status;
+    public void reject(String reason) {
+        state.reject(this, reason);
+    }
+
+    public void startPreparation() {
+        state.startPreparation(this);
+    }
+
+    public void finishPreparation() {
+        state.finishPreparation(this);
+    }
+
+    public void sendForDelivery() {
+        state.sendForDelivery(this);
+    }
+
+    public void confirmDelivery() {
+        state.confirmDelivery(this);
+    }
+
+    public void cancel() {
+        state.cancel(this);
+    }
+
+    public String getCurrentStatus() {
+        return state.getStatus();
     }
 
     @Override
     public boolean equals(Object object) {
-        if (this == object) return true;
-        if (object == null || getClass() != object.getClass()) return false;
+        if (this == object) {
+            return true;
+        }
+        if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
         Order order = (Order) object;
-        return id == order.id && Objects.equals(items, order.items) && status == order.status;
+        return id == order.id && Objects.equals(items, order.items) && state == order.state;
     }
 
     @Override
     public String toString() {
-        return "Order{" +
-                "id=" + id +
-                ", items=" + items +
-                ", status=" + status +
-                '}';
+        return "Order{"
+                + "id=" + id
+                + ", items=" + items
+                + ", state=" + state
+                + '}';
     }
 }
