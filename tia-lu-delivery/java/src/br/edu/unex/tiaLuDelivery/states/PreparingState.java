@@ -1,0 +1,55 @@
+package br.edu.unex.tiaLuDelivery.states;
+
+import br.edu.unex.tiaLuDelivery.exceptions.StateInvalidException;
+import br.edu.unex.tiaLuDelivery.model.Order;
+import br.edu.unex.tiaLuDelivery.services.NotificationService;
+
+public class PreparingState implements IOrderState {
+
+    @Override
+    public void startPreparation(Order order) {
+        throw new StateInvalidException("O pedido já foi iniciado para preparação");
+    }
+
+    @Override
+    public void accept(Order order) {
+        throw new StateInvalidException("O pedido já foi aceito");
+    }
+
+    @Override
+    public void reject(Order order, String reason) {
+        throw new StateInvalidException("O pedido já foi aceito");
+    }
+
+    @Override
+    public void cancel(Order order) {
+        System.out.println("Pedido" + order.getId() + " cancelado pelo cliente");
+        order.setState(new CanceledState());
+        NotificationService.notificationCustomer(order.getCustomer(),
+                "Seu pedido foi cancelado");
+    }
+
+    @Override
+    public void finishPreparation(Order order) {
+        System.out.println("Pedido" + order.getId() + " ficou pronto para entrega");
+        order.setState(new WaitingCourierState());
+        NotificationService.notificationCustomer(order.getCustomer(),
+                "Seu pedido ficou pronto para entrega");
+    }
+
+    @Override
+    public void sendForDelivery(Order order) {
+        throw new StateInvalidException("O pedido ainda não teve a preparação finalizada");
+    }
+
+    @Override
+    public void confirmDelivery(Order order) {
+        throw new StateInvalidException("O pedido ainda não teve a preparação finalizada");
+    }
+
+    @Override
+    public String getStatus() {
+        return "Preparando";
+    }
+
+}
