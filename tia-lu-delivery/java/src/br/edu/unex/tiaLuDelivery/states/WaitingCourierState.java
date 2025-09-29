@@ -1,5 +1,62 @@
 package br.edu.unex.tiaLuDelivery.states;
 
-public class WaitingCourierState {
+import br.edu.unex.tiaLuDelivery.exceptions.StateInvalidException;
+import br.edu.unex.tiaLuDelivery.model.Order;
+import br.edu.unex.tiaLuDelivery.services.LogisticService;
+import br.edu.unex.tiaLuDelivery.services.NotificationService;
+
+public class WaitingCourierState implements IOrderState {
+
+    @Override
+    public void sendForDelivery(Order order) {
+        System.out.println("Pedido" + order.getId() + " enviado para entrega");
+        
+        boolean courierFound = LogisticService.requestCourier(order);
+        
+        if (courierFound) {
+            order.setState(new InDeliveryState());
+            NotificationService.notificationCustomer(order.getCustomer(),
+                    "Seu pedido foi enviado para entrega");
+        } else {
+            System.out.println("Nenhum entregador disponível no momento.");
+        }
+    }
+
+    @Override
+    public void cancel (Order order) {
+        System.out.println("Pedido" + order.getId() + " cancelado pelo cliente");
+        order.setState(new CanceledState());
+        NotificationService.notificationCustomer(order.getCustomer(),
+                "Seu pedido foi cancelado");
+    }
+    
+    @Override
+    public void accept (Order order) {
+        throw new StateInvalidException("O pedido já foi aceito");
+    }
+
+    @Override
+    public void reject (Order order, String reason) {
+        throw new StateInvalidException("O pedido já foi aceito");
+    }
+
+    @Override
+    public void startPreparation (Order order) {
+        throw new StateInvalidException("O pedido já foi preparado");
+    }
+
+    @Override
+    public void finishPreparation (Order order) {
+        throw new StateInvalidException("O pedido já foi preparado");
+    }
+
+    @Override
+    public void confirmDelivery (Order order) {
+        throw new StateInvalidException("O pedido ainda não saiu para entrega");
+    }
+    @Override
+    public String getStatus() {
+        return "Aguardando entregador";
+    }
     
 }

@@ -16,6 +16,7 @@ public class Order {
     private final Customer customer;
     private final List<OrderItem> items;
     private IOrderState state;
+    private String reasonReject;
 
     public Order(final Customer customer) {
         this.id = ++sequence;
@@ -56,6 +57,14 @@ public class Order {
         return items;
     }
 
+    public String getReasonReject() {
+        return reasonReject;
+    }
+
+    public void setReasonReject(String reasonReject) {
+        this.reasonReject = reasonReject;
+    }
+
     public void accept() {
         state.accept(this);
     }
@@ -86,6 +95,14 @@ public class Order {
 
     public String getCurrentStatus() {
         return state.getStatus();
+    }
+
+    public IOrderState getState() {
+        return state;
+    }
+
+    public void setState(IOrderState state) {
+        this.state = state;
     }
 
     @Override
