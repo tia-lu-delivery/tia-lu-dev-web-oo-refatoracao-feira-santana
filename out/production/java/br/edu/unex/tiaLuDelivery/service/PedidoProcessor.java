@@ -1,3 +1,6 @@
+package br.edu.unex.tiaLuDelivery.service;
+
+
 public class PedidoProcessor {
     public void iniciarProcessamento(String clienteEmail, String item) {
         System.out.println("Processor: Iniciando processamento do pedido para " + clienteEmail + " com item: " + item);

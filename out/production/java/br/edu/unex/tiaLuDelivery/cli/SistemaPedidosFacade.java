@@ -2,6 +2,9 @@
  * A classe SistemaPedidosFacade fornece uma interface unificada e simplificada
  * para o subsistema de pedidos complexo (Gerenciamento de Clientes, Cardápio, Processamento).
  */
+
+package br.edu.unex.tiaLuDelivery.cli;
+
 public class SistemaPedidosFacade {
 
     // Referências aos subsistemas que ela irá orquestrar

@@ -1,3 +1,5 @@
+package br.edu.unex.tiaLuDelivery.service;
+
 public class CardapioManager {
     public boolean verificarDisponibilidade(String item, int quantidade) {
         System.out.println("Manager: Verificando disponibilidade de " + quantidade + "x " + item);

@@ -1,3 +1,5 @@
+package br.edu.unex.tiaLuDelivery;
+
 public class Aplicacao {
     public static void main(String[] args) {
         // O cliente interage APENAS com a Fachada.
