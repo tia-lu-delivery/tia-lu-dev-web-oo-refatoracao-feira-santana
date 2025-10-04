@@ -5,6 +5,12 @@
 
 package br.edu.unex.tiaLuDelivery.cli;
 
+import br.edu.unex.tiaLuDelivery.service.CardapioManager;
+import br.edu.unex.tiaLuDelivery.service.PedidoProcessor;
+import br.edu.unex.tiaLuDelivery.repository.ClienteDAO;
+
+
+
 public class SistemaPedidosFacade {
 
     // Referências aos subsistemas que ela irá orquestrar
