@@ -1,10 +1,11 @@
 package br.edu.unex.tiaLuDelivery.model;
 
+import br.edu.unex.tiaLuDelivery.observer.OrderObserver;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Customer {
+public class Customer implements OrderObserver {
 
     private static long sequence = 0;
 
@@ -71,4 +72,12 @@ public class Customer {
                 ", orders=" + orders +
                 '}';
     }
+
+    @Override
+    public void onStatusChanged(Order order, OrderStatus previous, OrderStatus current) {
+        if (previous == OrderStatus.AWAITING_MERCHANT_ACCEPTANCE && current == OrderStatus.ACCEPTED) {
+            System.out.printf("[Cliente] %s: seu pedido #%d foi aceito.%n", this.getName(), order.getId());
+        }
+    }
 }
+
